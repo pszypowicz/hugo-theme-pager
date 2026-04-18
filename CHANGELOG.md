@@ -5,6 +5,27 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.1] - 2026-04-18
+
+### Fixed
+
+- Tag and category widgets now sort alphabetically. They ranged a Go
+  map and so picked a new visit order on every build.
+- About widget no longer renders an empty `<section>` when
+  `[params.widgets.about].description` is unset.
+- Print stylesheet suppresses the `§` prefix on H2/H3 headings; the
+  glyph is decoration for screen reading, not content for paper.
+- Icon helper renders the icon name as visible text for unknown
+  names so a misconfigured social link is at least debuggable
+  instead of silently invisible.
+
+### Added
+
+- `rel="prev"` / `rel="next"` on list pagination links for browsers,
+  screen readers, and search engines.
+
+[0.1.1]: https://github.com/pszypowicz/hugo-theme-pager/releases/tag/v0.1.1
+
 ## [0.1.0] - 2026-04-18
 
 First public release.

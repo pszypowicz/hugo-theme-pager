@@ -3,8 +3,8 @@
 <section class="widget widget--tags">
   <h2 class="widget__title">tags</h2>
   <ul class="widget__taglist widget__taglist--inline">
-    {{- range $name, $taxonomy := . }}
-    <li><a href="{{ printf "/tags/%s/" ($name | urlize) | relURL }}">{{ $name }}</a></li>
+    {{- range .Alphabetical }}
+    <li><a href="{{ .Page.RelPermalink }}">{{ .Page.Title }}</a></li>
     {{- end }}
   </ul>
 </section>

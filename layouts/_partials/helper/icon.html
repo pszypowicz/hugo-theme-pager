@@ -14,5 +14,6 @@
 {{- else if eq $name "link" -}}
 {{- print $c `<path d="M10 14a3.5 3.5 0 0 0 5 0l4-4a3.5 3.5 0 0 0-5-5l-1 1"/><path d="M14 10a3.5 3.5 0 0 0-5 0l-4 4a3.5 3.5 0 0 0 5 5l1-1"/></svg>` | safeHTML -}}
 {{- else -}}
-{{- /* unknown icon: render nothing and let the caller fall back to name */ -}}
+{{- /* unknown icon: render the name as visible text so the link isn't blank */ -}}
+{{- $name -}}
 {{- end -}}

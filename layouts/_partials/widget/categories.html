@@ -3,8 +3,8 @@
 <section class="widget widget--categories">
   <h2 class="widget__title"># categories</h2>
   <ul class="widget__taglist">
-    {{- range $name, $taxonomy := . }}
-    <li><a href="{{ printf "/categories/%s/" ($name | urlize) | relURL }}">{{ $name }} <span class="widget__count">{{ len $taxonomy }}</span></a></li>
+    {{- range .Alphabetical }}
+    <li><a href="{{ .Page.RelPermalink }}">{{ .Page.Title }} <span class="widget__count">{{ .Count }}</span></a></li>
     {{- end }}
   </ul>
 </section>

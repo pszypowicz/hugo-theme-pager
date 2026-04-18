@@ -28,6 +28,10 @@
   h1, h2, h3, h4 { font-family: var(--serif-stack); page-break-after: avoid; }
   h2, h3 { page-break-after: avoid; }
 
+  /* drop the ember `§` glyph on paper - decoration only, not content */
+  .post__body h2::before,
+  .post__body h3::before { content: ""; }
+
   .post__body a::after {
     content: " (" attr(href) ")";
     font-size: 0.85em;
