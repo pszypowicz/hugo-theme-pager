@@ -48,12 +48,6 @@ enableEmoji     = false
             title       = "about"
             description = "Short author bio, rendered on every page."
 
-[[menu.main]]
-    identifier = "about"
-    name       = "About"
-    url        = "/about/"
-    weight     = 10
-
 [[menu.social]]
     identifier = "github"
     name       = "GitHub"
