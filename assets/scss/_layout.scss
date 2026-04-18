@@ -1,0 +1,98 @@
+/*
+ * Layout. Single left sidebar, 80ch main, 4ch gutter.
+ * Mobile stacks; tablet and up sits side by side.
+ */
+
+.page {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--page-pad);
+  max-width: calc(var(--col-aside) + var(--gutter) + var(--col-main) + 2 * var(--page-pad));
+  margin: 0 auto;
+}
+
+.main {
+  min-width: 0;
+  max-width: var(--col-main);
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .page {
+    grid-template-columns: var(--col-aside) 1fr;
+    gap: var(--gutter);
+    padding: var(--space-5) var(--space-4);
+    align-items: start;
+  }
+  .sidebar {
+    position: sticky;
+    top: var(--space-5);
+    max-height: calc(100vh - var(--space-5) * 2);
+    overflow-y: auto;
+    scrollbar-width: thin;
+  }
+}
+
+/* site header block inside sidebar */
+.site-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+.site-name {
+  font-family: var(--mono-stack);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--ink);
+  border-bottom: none;
+  letter-spacing: -0.01em;
+}
+.site-name:hover { color: var(--accent); }
+.site-subtitle {
+  font-family: var(--mono-stack);
+  font-size: 0.82rem;
+  color: var(--ink-3);
+  font-weight: 400;
+}
+
+/* menu */
+.menu ul {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+.menu a {
+  font-family: var(--mono-stack);
+  font-size: 0.95rem;
+  color: var(--ink-2);
+  border-bottom: none;
+}
+.menu a:hover { color: var(--accent); }
+.menu li.current a {
+  color: var(--accent);
+  font-weight: 700;
+}
+.menu li.current a::before {
+  content: "❯ ";
+  color: var(--accent);
+}
+
+.menu-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+.menu-social a {
+  color: var(--ink-2);
+  border-bottom: none;
+  font-family: var(--mono-stack);
+  font-size: 0.85rem;
+}
+.menu-social a:hover { color: var(--accent); }
+.menu-social svg { width: 18px; height: 18px; }

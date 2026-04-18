@@ -1,0 +1,71 @@
+{{- /*
+    ASCII-tree table of contents.
+
+    .TableOfContents in Hugo is rendered HTML. We bypass it and walk
+    .Fragments.Headings (Hugo >= 0.124) to draw a proper typographic
+    tree using U+251C, U+2514, U+2500, U+2502 box-drawing characters.
+    The tree is monospace-aligned so every indent column lines up
+    against the glyph grid.
+*/ -}}
+{{- $ctx := .Context -}}
+{{- if $ctx.IsPage -}}
+  {{- with $ctx.Fragments.Headings -}}
+    {{- /*
+        Flatten headings into a linear list with depth. We look at
+        H2 and H3 only - anything deeper just creates visual noise
+        in a tree this compact.
+    */ -}}
+    {{- $items := slice -}}
+    {{- range . -}}
+      {{- if eq .Level 2 -}}
+        {{- $items = $items | append (dict "level" 1 "title" .Title "id" .ID "last" false) -}}
+        {{- range .Headings -}}
+          {{- if eq .Level 3 -}}
+            {{- $items = $items | append (dict "level" 2 "title" .Title "id" .ID "last" false) -}}
+          {{- end -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+
+    {{- /* Mark last-at-depth entries so we can draw └ vs ├. */ -}}
+    {{- $total := len $items -}}
+    {{- if gt $total 0 -}}
+<section class="widget widget--toc">
+  <h2 class="widget__title"># contents</h2>
+  <pre class="widget__toc-tree" aria-label="Table of contents"><code>
+{{- range $i, $item := $items -}}
+  {{- /* Find if this is the last entry at its level among its siblings. */ -}}
+  {{- $isLastAtLevel := true -}}
+  {{- range $j, $other := $items -}}
+    {{- if and (gt $j $i) (eq $other.level $item.level) -}}
+      {{- /* Another at same level appears later, so this isn't last. */ -}}
+      {{- $isLastAtLevel = false -}}
+    {{- end -}}
+    {{- if and (gt $j $i) (lt $other.level $item.level) -}}
+      {{- /* A shallower level appears before another same-level, so this IS last. Stop. */ -}}
+      {{- break -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $branch := cond $isLastAtLevel "└─ " "├─ " -}}
+  {{- $indent := "" -}}
+  {{- if eq $item.level 2 -}}
+    {{- /* Check if the parent H2 was the last H2. */ -}}
+    {{- $parentIsLast := true -}}
+    {{- range $j, $other := $items -}}
+      {{- if and (lt $j $i) (eq $other.level 1) -}}
+        {{- $hasLaterH2 := false -}}
+        {{- range $k, $lookahead := $items -}}
+          {{- if and (gt $k $j) (eq $lookahead.level 1) -}}{{- $hasLaterH2 = true -}}{{- end -}}
+        {{- end -}}
+        {{- if $hasLaterH2 -}}{{- $parentIsLast = false -}}{{- end -}}
+      {{- end -}}
+    {{- end -}}
+    {{- $indent = cond $parentIsLast "   " "│  " -}}
+  {{- end -}}
+<a href="#{{ $item.id }}">{{ $indent }}{{ $branch }}{{ $item.title }}</a>
+{{ end -}}
+</code></pre>
+</section>
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
