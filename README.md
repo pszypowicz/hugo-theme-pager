@@ -16,6 +16,10 @@ Pager is monospace-first, opinionated, and purpose-built for technical writing. 
 
 Ember/terracotta accent on warm off-white paper (light) or deep ink (dark). `prefers-color-scheme` selects. No purple, no shadows, no rounded cards. Borders where structure demands, negative space elsewhere. Everything snaps to a monospace character grid.
 
+| Light                           | Dark                                |
+| ------------------------------- | ----------------------------------- |
+| ![light](images/screenshot.png) | ![dark](images/screenshot-dark.png) |
+
 ## Requirements
 
 - Hugo extended >= 0.160.0 (uses `.Fragments.Headings`, `resources.PostCSS`, `resources.Fingerprint`).
