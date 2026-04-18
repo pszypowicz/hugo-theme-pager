@@ -22,3 +22,6 @@
 <meta property="article:modified_time" content="{{ .Format `2006-01-02T15:04:05Z07:00` }}">
   {{- end }}
 {{- end }}
+{{- with .OutputFormats.Get "rss" }}
+<link rel="alternate" type="application/rss+xml" href="{{ .Permalink }}" title="{{ $.Site.Title }} feed">
+{{- end }}

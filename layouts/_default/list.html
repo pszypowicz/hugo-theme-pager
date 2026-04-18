@@ -19,6 +19,8 @@
       <h2 class="post-card__title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
       {{- with .Description }}
       <p class="post-card__summary">{{ . }}</p>
+      {{- else }}
+      <p class="post-card__summary">{{ .Summary | plainify | truncate 200 }}</p>
       {{- end }}
       <p class="post-card__meta">
         <time datetime="{{ .Date.Format `2006-01-02` }}">{{ .Date.Format "2006-01-02" }}</time>
