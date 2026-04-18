@@ -5,6 +5,21 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.2] - 2026-04-18
+
+### Added
+
+- Default favicon: the ember `§` glyph on warm paper with a
+  dark-mode swap via `prefers-color-scheme`. Lives in
+  `static/favicon.svg` (~500 B) plus a 180 px PNG for iOS at
+  `static/apple-touch-icon.png`.
+- `<link rel="icon">` and `<link rel="apple-touch-icon">` in
+  `head/meta.html`. Sites that drop their own `favicon.svg` /
+  `apple-touch-icon.png` into their own `static/` automatically
+  override the theme defaults via Hugo's static-file resolution.
+
+[0.1.2]: https://github.com/pszypowicz/hugo-theme-pager/releases/tag/v0.1.2
+
 ## [0.1.1] - 2026-04-18
 
 ### Fixed
