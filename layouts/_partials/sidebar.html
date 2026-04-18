@@ -37,12 +37,14 @@
   {{- end -}}
 
   {{- with and $scope (index .Site.Params.widgets $scope) }}
+    {{- with where . "position" "ne" "bot" }}
   <div class="widgets">
-    {{- range . -}}
-      {{- if templates.Exists (printf "_partials/widget/%s.html" .type) -}}
-        {{ partial (printf "widget/%s" .type) (dict "Context" $ "Params" (default dict .params)) }}
+      {{- range . -}}
+        {{- if templates.Exists (printf "_partials/widget/%s.html" .type) -}}
+          {{ partial (printf "widget/%s" .type) (dict "Context" $ "Params" (default dict .params)) }}
+        {{- end -}}
       {{- end -}}
-    {{- end -}}
   </div>
+    {{- end }}
   {{- end }}
 </aside>

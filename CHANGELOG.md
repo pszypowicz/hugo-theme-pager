@@ -5,6 +5,27 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.4] - 2026-04-18
+
+### Changed
+
+- Split sidebar into two partials so mobile readers see articles
+  before taxonomy. Primary widgets (about, toc) render in
+  `<aside class="sidebar">` above `<main>`; secondary widgets render
+  in `<aside class="sidebar-bot">` below it. On desktop, a
+  `grid-template-areas` layout pins both asides to the left column,
+  preserving the previous visual.
+- Widgets opt into the secondary block with `position = "bot"` in
+  site config. Anything without a `position` stays primary, so the
+  change is source-compatible for existing sites.
+
+### Added
+
+- `layouts/_partials/sidebar-bot.html`. Only emits an `<aside>` when
+  the current scope has at least one bot widget.
+
+[0.1.4]: https://github.com/pszypowicz/hugo-theme-pager/releases/tag/v0.1.4
+
 ## [0.1.3] - 2026-04-18
 
 ### Changed

@@ -26,10 +26,16 @@
 @media (min-width: 768px) {
   .page {
     grid-template-columns: var(--col-aside) 1fr;
+    grid-template-areas:
+      "aside main"
+      "bot   main";
     gap: var(--gutter);
     padding: var(--space-5) var(--space-4);
     align-items: start;
   }
+  .sidebar     { grid-area: aside; }
+  .main        { grid-area: main; }
+  .sidebar-bot { grid-area: bot; }
   .sidebar {
     position: sticky;
     top: var(--space-5);
