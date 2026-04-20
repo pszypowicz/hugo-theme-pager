@@ -102,6 +102,12 @@
   align-items: center;
 }
 .post__sep { color: var(--rule); }
+.post__ai {
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.78rem;
+}
 
 .post__body > * + * { margin-top: var(--space-3); }
 .post__body h2 {
