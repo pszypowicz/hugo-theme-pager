@@ -17,32 +17,39 @@
   max-width: var(--col-main);
 }
 
-.sidebar {
+.sidebar,
+.sidebar-bot {
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
 }
 
+/* Mobile: wrapper is transparent so sidebar-bot (taxonomy) can flow
+   below main via order. Desktop promotes wrapper to a sticky flex column. */
+.sidebar-col { display: contents; }
+.sidebar-bot { order: 1; }
+
 @media (min-width: 768px) {
   .page {
     grid-template-columns: var(--col-aside) 1fr;
-    grid-template-areas:
-      "aside main"
-      "bot   main";
+    grid-template-areas: "col main";
     gap: var(--gutter);
     padding: var(--space-5) var(--space-4);
     align-items: start;
   }
-  .sidebar     { grid-area: aside; }
-  .main        { grid-area: main; }
-  .sidebar-bot { grid-area: bot; }
-  .sidebar {
+  .sidebar-col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    grid-area: col;
     position: sticky;
     top: var(--space-5);
     max-height: calc(100vh - var(--space-5) * 2);
     overflow-y: auto;
     scrollbar-width: thin;
   }
+  .main        { grid-area: main; }
+  .sidebar-bot { order: 0; }
 }
 
 /* site header block inside sidebar */

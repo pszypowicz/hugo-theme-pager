@@ -14,11 +14,13 @@
 </head>
 <body>
 <div class="page">
+<div class="sidebar-col">
 {{- partial "sidebar.html" . -}}
+{{- partial "sidebar-bot.html" . -}}
+</div>
 <main class="main">
 {{- block "main" . }}{{ end -}}
 </main>
-{{- partial "sidebar-bot.html" . -}}
 </div>
 {{- partial "footer.html" . -}}
 </body>
