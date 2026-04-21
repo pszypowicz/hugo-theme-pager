@@ -42,6 +42,10 @@
     flex-direction: column;
     gap: var(--space-4);
     grid-area: col;
+    /* Pin the grid track to --col-aside even when a sidebar widget (e.g. the
+       TOC's white-space: pre <pre>) reports a larger min-content. Without
+       this, WebKit expands the track and shifts main rightward. */
+    min-width: 0;
     position: sticky;
     top: var(--space-5);
     max-height: calc(100vh - var(--space-5) * 2);

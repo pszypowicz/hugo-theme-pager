@@ -156,7 +156,11 @@
   color: var(--accent);
   background: transparent;
   padding: 0;
-  border-bottom: 1px solid var(--rule);
+}
+.post__body code:not(pre code)::before,
+.post__body code:not(pre code)::after {
+  content: "`";
+  color: var(--ink-3);
 }
 
 .post__body img {

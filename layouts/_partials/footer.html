@@ -29,4 +29,16 @@
   {{- end }}
   <span class="modeline__sep">·</span>
   <span class="modeline__build">built with Hugo · theme <a href="https://github.com/pszypowicz/hugo-theme-pager">pager</a></span>
+  {{- with or (os.Getenv "CF_PAGES_COMMIT_SHA") (os.Getenv "COMMIT_SHA") }}
+  {{- $sha := . -}}
+  {{- $short := substr $sha 0 7 -}}
+  <span class="modeline__sep">·</span>
+  <span class="modeline__sha">
+    {{- with $.Site.Params.repoURL -}}
+      <a href="{{ . }}/tree/{{ $sha }}" title="browse files at {{ $short }}">{{ $short }}</a>
+    {{- else -}}
+      <span title="site commit">{{ $short }}</span>
+    {{- end -}}
+  </span>
+  {{- end }}
 </footer>
