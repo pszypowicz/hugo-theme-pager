@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `scripts/capture-screenshots.mjs` plus `npm run screenshots`. Builds
+  `exampleSite/`, serves it on an ephemeral local port, drives a
+  headless chromium through three viewport / colour-scheme
+  combinations, and writes the gallery PNGs to `images/`. Reproducible
+  replacement for the previous manual capture flow. Playwright is
+  declared under `optionalDependencies` so CI's
+  `npm ci --ignore-scripts` skips the browser-binary postinstall.
+- README "Maintainer notes" section pointing at the script.
+
+### Changed
+
+- Refreshed `images/screenshot.png`, `images/screenshot-dark.png`,
+  and `images/tn.png` against the current build. Picks up the
+  system-monospace chrome and headings, the de-rounded `kbd`
+  corners, and the current grid layout.
+
 ## [0.2.2]
 
 ### Added
