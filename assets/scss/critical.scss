@@ -5,8 +5,8 @@
  * Everything above-the-fold: tokens, reset, typography, layout,
  * sidebar, article cards, post header, modeline skeleton.
  *
- * Below-fold concerns (code blocks, chroma highlight, print,
- * Cascadia @font-face) live in rest.scss and load deferred.
+ * Below-fold concerns (code blocks, chroma highlight, print)
+ * live in rest.scss and load deferred.
  */
 
 @import "tokens";

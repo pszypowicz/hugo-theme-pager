@@ -1,0 +1,40 @@
+name: ci
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+# The theme is consumed by the blog repo, which runs the full budget /
+# lint / typecheck matrix. This workflow is a lightweight sanity gate:
+# it confirms the theme still compiles against a representative site
+# (exampleSite/) so broken SCSS imports or template syntax errors are
+# caught before a blog-side submodule bump exposes them.
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      HUGO_VERSION: "0.160.1"
+    steps:
+      # Checkout into a directory named "pager" so exampleSite/hugo.toml
+      # (theme = "pager") can resolve the theme under --themesDir ../..
+      # without a rename step.
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd  # v5.0.1
+        with:
+          path: pager
+
+      - name: Install Hugo extended
+        run: |
+          wget -q -O /tmp/hugo.deb \
+            "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb"
+          sudo dpkg -i /tmp/hugo.deb
+          hugo version
+
+      - name: Build exampleSite
+        working-directory: pager/exampleSite
+        run: hugo --minify --gc --themesDir ../.. --destination public
