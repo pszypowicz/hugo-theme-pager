@@ -7,13 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-Add bullets here under `### Added`, `### Changed`, `### Fixed`, or `### Removed`
-when a PR modifies theme behavior. On release, rename this heading to the new
-version (dates are not tracked here; the git tag carries them), then push an
-annotated tag `vX.Y.Z`; `.github/workflows/release.yml` turns the extracted
-section into a GitHub Release body. Docs-only, CI-only, or meta-only PRs can
-bypass the PR-side check via the `skip-changelog` label or a `[skip changelog]`
-tag in the PR body; see `.github/workflows/changelog.yml`.
+## [0.2.2]
 
 ### Added
 
