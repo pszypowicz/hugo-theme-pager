@@ -100,6 +100,22 @@ See `exampleSite/hugo.toml` for the full set. Widgets live under `[params.widget
 
 Search, comments, galleries, analytics, theme switcher UI, multilingual switcher UI, mermaid diagrams, and smooth-scroll. All deliberately absent. Add them yourself if you need them.
 
+## Maintainer notes
+
+Regenerate the gallery screenshots after any visible change:
+
+```
+npm install
+npx playwright install chromium  # one-time, per machine
+npm run screenshots
+```
+
+The script (`scripts/capture-screenshots.mjs`) builds `exampleSite/`,
+serves it on a local ephemeral port, drives headless chromium through
+three viewport / colour-scheme combinations, and writes
+`images/screenshot.png`, `images/screenshot-dark.png`, and
+`images/tn.png`. Run with `--help` for options.
+
 ## Credits
 
 - Icon paths derived from [Tabler Icons](https://tabler.io/icons) - MIT.
