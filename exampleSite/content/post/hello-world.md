@@ -20,8 +20,9 @@ character renders. Pager inverts the priorities.
 
 - **TCP initcwnd.** The first round-trip after the handshake carries
   about 14 KB of Brotli-q11 payload. Everything critical must fit.
-- **System fonts first.** The reader sees text in under 200 ms.
-  Cascadia Code swaps in later, without layout shift.
+- **System fonts only.** The reader sees text in under 200 ms,
+  rendered in the platform's own monospace and humanist sans; nothing
+  swaps in afterwards, so there is no layout shift race.
 - **One column to read, one column to navigate.** The sidebar stays
   sticky on scroll; the main column stays short enough to follow.
 

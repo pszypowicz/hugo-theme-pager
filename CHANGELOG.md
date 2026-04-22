@@ -15,6 +15,29 @@ section into a GitHub Release body. Docs-only, CI-only, or meta-only PRs can
 bypass the PR-side check via the `skip-changelog` label or a `[skip changelog]`
 tag in the PR body; see `.github/workflows/changelog.yml`.
 
+### Changed
+
+- README and `theme.toml` describe the theme accurately: system
+  monospace for chrome + headings + code, humanist sans for body.
+  Drops the "monospace-first" framing that never matched the CSS.
+- README install section adds Hugo Modules as the recommended path,
+  and the "zero JavaScript" bullet reflects that the production build
+  ships a one-line inline preload-swap handler.
+- Dropped the no-op `"ss01" 1` font-feature-setting on headings -
+  a Cascadia stylistic set that has been dead since v0.2.0 removed
+  the font.
+
+### Fixed
+
+- `kbd` elements and the dev debug overlay pills no longer have
+  rounded corners, honoring the "no rounded cards" rule in the README.
+
+### Removed
+
+- Cascadia-Code credit in the README and a stale "Cascadia swaps in
+  later" reference in `exampleSite/content/post/hello-world.md`, both
+  left over after v0.2.0 dropped the font.
+
 ## [0.2.0]
 
 ### Changed

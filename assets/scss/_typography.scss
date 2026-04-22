@@ -10,7 +10,7 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: -0.01em;
   color: var(--ink);
   margin: 0;
-  font-feature-settings: "calt" 1, "ss01" 1;
+  font-feature-settings: "calt" 1;
 }
 
 h1 { font-size: 1.9rem; }
@@ -48,7 +48,6 @@ code, kbd, samp {
 kbd {
   border: 1px solid var(--rule);
   border-bottom-width: 2px;
-  border-radius: 3px;
   padding: 0.05em 0.4em;
   background: var(--paper-2);
   font-size: 0.82em;
