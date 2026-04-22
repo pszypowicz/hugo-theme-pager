@@ -17,6 +17,10 @@ pre, .highlight {
   scrollbar-width: thin;
   scrollbar-color: var(--rule) transparent;
   max-width: 100%;
+  /* Never contribute min-content (longest non-breaking line) to ancestor
+     sizing. Combined with .main's `overflow-x: hidden`, this keeps the
+     grid track stable on iPad Safari even when code lines exceed 80ch. */
+  min-width: 0;
 }
 
 pre code, .highlight code {

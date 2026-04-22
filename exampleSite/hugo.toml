@@ -61,3 +61,12 @@ enableEmoji     = false
     url        = "https://www.linkedin.com/in/example"
     [menu.social.params]
         icon = "brand-linkedin"
+
+# The modeline footer reads CF_PAGES_COMMIT_SHA (Cloudflare Pages auto-
+# sets it) or COMMIT_SHA (local builds opt in) to render a build SHA.
+# Hugo's default security policy only exposes env vars matching
+# ^HUGO_ or ^CI$, so consumer sites of the theme need to allowlist
+# these patterns; the blog repo does the same in its own hugo.toml.
+[security]
+    [security.funcs]
+        getenv = ['^HUGO_', '^CI$', '^CF_PAGES_', '^COMMIT_SHA$']

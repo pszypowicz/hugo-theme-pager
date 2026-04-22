@@ -15,6 +15,12 @@
 .main {
   min-width: 0;
   max-width: var(--col-main);
+  /* Tell WebKit: "I handle any internal overflow myself, do not widen
+     me to fit a descendant's min-content." iPad Safari widens .main
+     past its grid track otherwise, regardless of min-width: 0 and
+     minmax(0, 1fr) on the track. Inner <pre> blocks keep their own
+     overflow-x: auto so long code still scrolls inside them. */
+  overflow-x: hidden;
 }
 
 .sidebar,
@@ -22,12 +28,6 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
-  /* Stop flex children from propagating mono-stack min-content up the
-     chain to the grid track. Without this, Cascadia-rendered TOC lines
-     can expand the sidebar track on iPad Safari the first time a page
-     is laid out, shifting main rightward until bfcache replays a
-     later, corrected state. */
-  min-width: 0;
 }
 
 /* Mobile: wrapper is transparent so sidebar-bot (taxonomy) can flow
@@ -37,9 +37,11 @@
 
 @media (min-width: 768px) {
   .page {
-    /* minmax(0, ...) explicitly caps the sidebar track's minimum at zero
-       so no descendant min-content can expand it, even on WebKit. */
-    grid-template-columns: minmax(0, var(--col-aside)) 1fr;
+    /* minmax(0, 1fr) caps the main track's minimum at zero so a loud
+       descendant min-content (long code line, wide table, long URL)
+       cannot inflate the track. Needed because .main's own min-width: 0
+       does not fully prevent track inflation on iPad Safari. */
+    grid-template-columns: var(--col-aside) minmax(0, 1fr);
     grid-template-areas: "col main";
     gap: var(--gutter);
     padding: var(--space-5) var(--space-4);
@@ -50,10 +52,6 @@
     flex-direction: column;
     gap: var(--space-4);
     grid-area: col;
-    /* Pin the grid track to --col-aside even when a sidebar widget (e.g. the
-       TOC's white-space: pre <pre>) reports a larger min-content. Without
-       this, WebKit expands the track and shifts main rightward. */
-    min-width: 0;
     position: sticky;
     top: var(--space-5);
     max-height: calc(100vh - var(--space-5) * 2);
