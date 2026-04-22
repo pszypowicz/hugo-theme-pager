@@ -15,6 +15,8 @@ section into a GitHub Release body. Docs-only, CI-only, or meta-only PRs can
 bypass the PR-side check via the `skip-changelog` label or a `[skip changelog]`
 tag in the PR body; see `.github/workflows/changelog.yml`.
 
+## [0.2.1]
+
 ### Changed
 
 - README and `theme.toml` describe the theme accurately: system
@@ -80,8 +82,6 @@ tag in the PR body; see `.github/workflows/changelog.yml`.
   `assets/scss/_fonts.scss`, and the `@import "fonts"` in
   `rest.scss`. No more web fonts shipped.
 
-[0.2.0]: https://github.com/pszypowicz/hugo-theme-pager/releases/tag/v0.2.0
-
 ## [0.1.9]
 
 ### Fixed
@@ -92,8 +92,6 @@ tag in the PR body; see `.github/workflows/changelog.yml`.
   `min-width: 0` on `.sidebar` / `.sidebar-bot` breaks the flex chain
   so monospace min-content from TOC `<pre>` content cannot bubble up
   to the grid.
-
-[0.1.9]: https://github.com/pszypowicz/hugo-theme-pager/releases/tag/v0.1.9
 
 ## [0.1.8]
 
@@ -110,16 +108,12 @@ tag in the PR body; see `.github/workflows/changelog.yml`.
   fixed grid track when a TOC widget's non-wrapping content reports
   a larger min-content.
 
-[0.1.8]: https://github.com/pszypowicz/hugo-theme-pager/releases/tag/v0.1.8
-
 ## [0.1.7]
 
 ### Changed
 
 - `--col-aside` widened from `20ch` to `22ch` so longer TOC titles
   stop truncating on tablet widths.
-
-[0.1.7]: https://github.com/pszypowicz/hugo-theme-pager/releases/tag/v0.1.7
 
 ## [0.1.6]
 
@@ -131,8 +125,6 @@ tag in the PR body; see `.github/workflows/changelog.yml`.
   column grid (`var(--col-aside) 1fr`) and lets the wrapper stay
   sticky on desktop.
 
-[0.1.6]: https://github.com/pszypowicz/hugo-theme-pager/releases/tag/v0.1.6
-
 ## [0.1.5]
 
 ### Added
@@ -140,8 +132,6 @@ tag in the PR body; see `.github/workflows/changelog.yml`.
 - Post meta renders an `ai-assisted` badge when front matter sets
   `ai_assisted = true`. Ember accent, uppercase, small caps-tracking;
   `title=` attribute explains the disclosure.
-
-[0.1.5]: https://github.com/pszypowicz/hugo-theme-pager/releases/tag/v0.1.5
 
 ## [0.1.4]
 
@@ -162,8 +152,6 @@ tag in the PR body; see `.github/workflows/changelog.yml`.
 - `layouts/_partials/sidebar-bot.html`. Only emits an `<aside>` when
   the current scope has at least one bot widget.
 
-[0.1.4]: https://github.com/pszypowicz/hugo-theme-pager/releases/tag/v0.1.4
-
 ## [0.1.3]
 
 ### Changed
@@ -175,8 +163,6 @@ tag in the PR body; see `.github/workflows/changelog.yml`.
   the tree alignment - both inconsistent).
 - TOC anchors carry a `title=` attribute so the full heading text
   surfaces on hover for truncated entries.
-
-[0.1.3]: https://github.com/pszypowicz/hugo-theme-pager/releases/tag/v0.1.3
 
 ## [0.1.2]
 
@@ -190,8 +176,6 @@ tag in the PR body; see `.github/workflows/changelog.yml`.
   `head/meta.html`. Sites that drop their own `favicon.svg` /
   `apple-touch-icon.png` into their own `static/` automatically
   override the theme defaults via Hugo's static-file resolution.
-
-[0.1.2]: https://github.com/pszypowicz/hugo-theme-pager/releases/tag/v0.1.2
 
 ## [0.1.1]
 
@@ -211,8 +195,6 @@ tag in the PR body; see `.github/workflows/changelog.yml`.
 
 - `rel="prev"` / `rel="next"` on list pagination links for browsers,
   screen readers, and search engines.
-
-[0.1.1]: https://github.com/pszypowicz/hugo-theme-pager/releases/tag/v0.1.1
 
 ## [0.1.0]
 
@@ -245,5 +227,3 @@ First public release.
 - Inline critical CSS, external deferred stylesheet with immutable
   cache.
 - Designed to fit under the 14 KB TCP initcwnd after Brotli-q11.
-
-[0.1.0]: https://github.com/pszypowicz/hugo-theme-pager/releases/tag/v0.1.0
