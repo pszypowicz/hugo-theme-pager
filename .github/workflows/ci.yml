@@ -21,7 +21,12 @@ jobs:
     env:
       HUGO_VERSION: "0.160.1"
     steps:
+      # Checkout into a directory named "pager" so exampleSite/hugo.toml
+      # (theme = "pager") can resolve the theme under --themesDir ../..
+      # without a rename step.
       - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd  # v5.0.1
+        with:
+          path: pager
 
       - name: Install Hugo extended
         run: |
@@ -31,5 +36,5 @@ jobs:
           hugo version
 
       - name: Build exampleSite
-        working-directory: exampleSite
+        working-directory: pager/exampleSite
         run: hugo --minify --gc --themesDir ../.. --destination public
