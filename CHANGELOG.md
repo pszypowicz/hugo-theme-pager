@@ -5,7 +5,122 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.1.4] - 2026-04-18
+## [Unreleased]
+
+Add bullets here under `### Added`, `### Changed`, `### Fixed`, or `### Removed`
+when a PR modifies theme behavior. On release, rename this heading to the new
+version (dates are not tracked here; the git tag carries them), then push an
+annotated tag `vX.Y.Z`; `.github/workflows/release.yml` turns the extracted
+section into a GitHub Release body. Docs-only, CI-only, or meta-only PRs can
+bypass the PR-side check via the `skip-changelog` label or a `[skip changelog]`
+tag in the PR body; see `.github/workflows/changelog.yml`.
+
+## [0.2.0]
+
+### Changed
+
+- `--mono-stack` falls through to `ui-monospace` / `SFMono-Regular`
+  instead of pulling in Cascadia Code. The `font-display: optional`
+  swap that drove the iPad Safari layout shift (fresh visit computed
+  against the fallback, second visit against the cached webfont) no
+  longer exists because there is no webfont.
+- Real grid fix for the "main column shifts right on long code lines
+  or wide TOC titles" iPad bug:
+  `grid-template-columns: var(--col-aside) minmax(0, 1fr)`,
+  `.main { overflow-x: hidden }`, `pre`/`.highlight { min-width: 0 }`.
+  Together these stop descendant min-content from inflating the main
+  track.
+- Inline `<code>` drops the bottom border (previously read as a link)
+  and gains muted backtick pseudo-elements. Matches the terminal
+  voice and mirrors the Markdown source.
+
+### Added
+
+- Dev-only debug overlay at `layouts/_partials/debug.html`. Renders
+  two pills when `hugo.IsServer` or `CF_PAGES_BRANCH != "main"`:
+  a viewport / page-box / sidebar-box / main-box / computed grid
+  template readout with tap-to-copy JSON, and an auto-reload toggle
+  that polls the current URL every 5 s and reloads only when the
+  modeline SHA changes. Scripts live in `assets/js/overlay.js` and
+  `assets/js/autoreload.js`, minified and fingerprinted via
+  `js.Build`. Production on `main` ships zero bytes of this.
+- `jsconfig.json` enables strict `checkJs` across `assets/js/**`.
+- `.github/workflows/ci.yml` builds `exampleSite/` on every PR as a
+  lightweight sanity gate; actions/checkout pinned to v5.0.1 by SHA.
+- `exampleSite/hugo.toml` allowlists `CF_PAGES_*` and `COMMIT_SHA` in
+  `security.funcs.getenv` so the modeline footer's `os.Getenv` call
+  clears Hugo's default policy on consumer sites.
+
+### Removed
+
+- `static/fonts/cascadia/*.woff2` (normal + italic variable faces),
+  `assets/scss/_fonts.scss`, and the `@import "fonts"` in
+  `rest.scss`. No more web fonts shipped.
+
+[0.2.0]: https://github.com/pszypowicz/hugo-theme-pager/releases/tag/v0.2.0
+
+## [0.1.9]
+
+### Fixed
+
+- iPad Safari sidebar-track inflation:
+  `grid-template-columns: minmax(0, var(--col-aside)) 1fr` forces the
+  sidebar track's minimum to zero so no descendant can widen it, and
+  `min-width: 0` on `.sidebar` / `.sidebar-bot` breaks the flex chain
+  so monospace min-content from TOC `<pre>` content cannot bubble up
+  to the grid.
+
+[0.1.9]: https://github.com/pszypowicz/hugo-theme-pager/releases/tag/v0.1.9
+
+## [0.1.8]
+
+### Changed
+
+- Inline `<code>` loses the `border-bottom` that read as a link and
+  gains `content` prefix / suffix in `--ink-3`.
+- Modeline optionally links the build SHA to a GitHub tree URL via
+  `Site.Params.repoURL`; falls back to a plain span when unset.
+
+### Fixed
+
+- `min-width: 0` on `.sidebar-col` to stop WebKit from expanding the
+  fixed grid track when a TOC widget's non-wrapping content reports
+  a larger min-content.
+
+[0.1.8]: https://github.com/pszypowicz/hugo-theme-pager/releases/tag/v0.1.8
+
+## [0.1.7]
+
+### Changed
+
+- `--col-aside` widened from `20ch` to `22ch` so longer TOC titles
+  stop truncating on tablet widths.
+
+[0.1.7]: https://github.com/pszypowicz/hugo-theme-pager/releases/tag/v0.1.7
+
+## [0.1.6]
+
+### Changed
+
+- Primary and secondary sidebars rejoin into a single sticky column.
+  `baseof.html` wraps `sidebar.html` + `sidebar-bot.html` in
+  `<div class="sidebar-col">`; `_layout.scss` switches to a two-
+  column grid (`var(--col-aside) 1fr`) and lets the wrapper stay
+  sticky on desktop.
+
+[0.1.6]: https://github.com/pszypowicz/hugo-theme-pager/releases/tag/v0.1.6
+
+## [0.1.5]
+
+### Added
+
+- Post meta renders an `ai-assisted` badge when front matter sets
+  `ai_assisted = true`. Ember accent, uppercase, small caps-tracking;
+  `title=` attribute explains the disclosure.
+
+[0.1.5]: https://github.com/pszypowicz/hugo-theme-pager/releases/tag/v0.1.5
+
+## [0.1.4]
 
 ### Changed
 
@@ -26,7 +141,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 [0.1.4]: https://github.com/pszypowicz/hugo-theme-pager/releases/tag/v0.1.4
 
-## [0.1.3] - 2026-04-18
+## [0.1.3]
 
 ### Changed
 
@@ -40,7 +155,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 [0.1.3]: https://github.com/pszypowicz/hugo-theme-pager/releases/tag/v0.1.3
 
-## [0.1.2] - 2026-04-18
+## [0.1.2]
 
 ### Added
 
@@ -55,7 +170,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 [0.1.2]: https://github.com/pszypowicz/hugo-theme-pager/releases/tag/v0.1.2
 
-## [0.1.1] - 2026-04-18
+## [0.1.1]
 
 ### Fixed
 
@@ -76,7 +191,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 [0.1.1]: https://github.com/pszypowicz/hugo-theme-pager/releases/tag/v0.1.1
 
-## [0.1.0] - 2026-04-18
+## [0.1.0]
 
 First public release.
 

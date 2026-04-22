@@ -1,0 +1,55 @@
+name: changelog
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, labeled, unlabeled, edited]
+
+permissions:
+  contents: read
+
+# Two levels of validation:
+#
+# 1. Structural validation always runs. It enforces the file's shape:
+#    trailing newline, blank lines around H2s, exactly 0 or 1 `[Unreleased]`
+#    heading, `[Unreleased]` (if present) above all version headings,
+#    version headings matching `## [X.Y.Z]` exactly (no dates, git tags
+#    carry those), and versions in descending order. Malformed
+#    CHANGELOG.md always fails, regardless of escape hatches.
+#
+# 2. Diff validation runs only when the PR touches theme behavior and
+#    neither escape hatch (`skip-changelog` label or `[skip changelog]`
+#    in the PR body) applies. It requires that CHANGELOG.md either
+#    extended `## [Unreleased]` or introduced a new `## [X.Y.Z]`
+#    heading.
+
+jobs:
+  changelog:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd  # v5.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Structural validation
+        run: python3 .github/scripts/validate-changelog.py --file CHANGELOG.md
+
+      - name: Check escape hatches and changed paths
+        id: gate
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+          PR_LABELS: ${{ toJson(github.event.pull_request.labels.*.name) }}
+        run: echo "run_diff=$(bash .github/scripts/changelog-gate.sh)" >>"$GITHUB_OUTPUT"
+
+      - name: Diff validation
+        if: steps.gate.outputs.run_diff == 'true'
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          python3 .github/scripts/validate-changelog.py \
+            --file CHANGELOG.md \
+            --base-sha "$BASE_SHA" \
+            --head-sha "$HEAD_SHA"
