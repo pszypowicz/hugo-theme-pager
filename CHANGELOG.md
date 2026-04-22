@@ -15,6 +15,14 @@ section into a GitHub Release body. Docs-only, CI-only, or meta-only PRs can
 bypass the PR-side check via the `skip-changelog` label or a `[skip changelog]`
 tag in the PR body; see `.github/workflows/changelog.yml`.
 
+### Added
+
+- Self-hosted ESLint and `tsc --checkJs` for `assets/js/`. The theme
+  ships `package.json` (eslint + typescript devDeps, `lint` /
+  `typecheck` scripts) and `eslint.config.mjs`, and `ci.yml` gains a
+  `lint` job. Consumers on Hugo Modules (where the theme's JS source
+  is not in the consumer tree) no longer need to re-host this tooling.
+
 ## [0.2.1]
 
 ### Changed
