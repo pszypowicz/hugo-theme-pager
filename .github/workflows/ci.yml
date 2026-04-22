@@ -9,11 +9,10 @@ on:
 permissions:
   contents: read
 
-# The theme is consumed by the blog repo, which runs the full budget /
-# lint / typecheck matrix. This workflow is a lightweight sanity gate:
-# it confirms the theme still compiles against a representative site
-# (exampleSite/) so broken SCSS imports or template syntax errors are
-# caught before a blog-side submodule bump exposes them.
+# The theme owns its own lint + typecheck for the JS assets under
+# assets/js/, and builds exampleSite/ as a sanity gate so broken SCSS
+# imports or template syntax errors surface before downstream consumers
+# bump to a new version.
 
 jobs:
   build:
@@ -38,3 +37,20 @@ jobs:
       - name: Build exampleSite
         working-directory: pager/exampleSite
         run: hugo --minify --gc --themesDir ../.. --destination public
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd  # v5.0.1
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444  # v5.0.0
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install npm devDependencies
+        # --ignore-scripts blocks postinstall hooks so a malicious
+        # package-lock.json change cannot execute code during install.
+        run: npm ci --include=dev --ignore-scripts
+      - name: ESLint
+        run: npm run lint
+      - name: TypeScript check
+        run: npm run typecheck
