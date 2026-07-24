@@ -19,13 +19,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd  # v5.0.1
-        # Fetch the annotated tag object itself, not just the commit it
-        # points at. Without this the tag is materialized as lightweight
-        # on the runner and `git tag -l --format='%(contents:subject)'`
-        # falls back to the commit subject - which for squash-merged PRs
-        # carries the "(#N)" suffix GitHub auto-appends.
-        with:
-          fetch-tags: true
 
       - name: Publish release
         env:
@@ -35,6 +28,15 @@ jobs:
 
           tag="${GITHUB_REF_NAME}"
           version="${tag#v}"
+
+          # Checkout materializes the pushed tag as a lightweight ref at the
+          # tagged commit, so the subject read below would fall back to the
+          # commit subject - which for squash-merged PRs carries the "(#N)"
+          # suffix GitHub auto-appends. Overwrite the local ref with the real
+          # annotated tag object. checkout's own fetch-tags cannot be used on
+          # tag-push events: it maps the commit SHA onto the same ref and git
+          # refuses the conflicting refspec (actions/checkout#1467).
+          git fetch --no-tags --force origin "refs/tags/${tag}:refs/tags/${tag}"
 
           notes=$(mktemp)
           python3 .github/scripts/extract-changelog-section.py \
