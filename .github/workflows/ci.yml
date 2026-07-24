@@ -38,6 +38,14 @@ jobs:
         working-directory: pager/exampleSite
         run: hugo --minify --gc --themesDir ../.. --destination public
 
+      # LibSass emits a UTF-8 BOM when compressed output contains
+      # non-ASCII; inside inline <style> that kills the first CSS rule
+      # (the :root token block). head/style.html strips it - this guards
+      # against any path that lets a BOM back into rendered HTML.
+      - name: Assert no BOM in rendered HTML
+        working-directory: pager/exampleSite
+        run: "! grep -rl $'\\xEF\\xBB\\xBF' public"
+
   lint:
     runs-on: ubuntu-latest
     steps:
