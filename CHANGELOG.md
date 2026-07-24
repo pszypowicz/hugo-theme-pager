@@ -5,6 +5,25 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.4]
+
+### Fixed
+
+- Inline critical CSS no longer ships a leading UTF-8 BOM. LibSass
+  prepends one to compressed output whenever it contains a non-ASCII
+  code point (the theme's glyph content strings do); inside `<style>`
+  the BOM invalidates the first CSS rule - the `:root` custom-property
+  block - so every `var()`-derived style died at first paint and the
+  whole page reflowed when the deferred sheet re-declared the tokens.
+  Current Chrome / Lighthouse charge that reflow as CLS 0.6-0.9 on
+  every page against a 0.01 budget. `head/style.html` now strips the
+  BOM before inlining, and CI asserts no BOM reaches rendered HTML. (#9)
+- Code block geometry (font metrics, padding, margins, border and
+  scrollbar sizing, overflow) moved from the deferred stylesheet into
+  the critical tier as `_code-layout.scss`; the deferred swap can
+  recolor but never reflow code blocks, regardless of arrival timing.
+  Costs ~80 B brotli on the consumer's worst-case critical path. (#9)
+
 ## [0.2.3]
 
 ### Added
