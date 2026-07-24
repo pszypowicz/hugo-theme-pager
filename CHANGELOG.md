@@ -5,7 +5,7 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.2.3]
 
 ### Added
 
@@ -24,6 +24,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   and `images/tn.png` against the current build. Picks up the
   system-monospace chrome and headings, the de-rounded `kbd`
   corners, and the current grid layout.
+
+### Fixed
+
+- `baseof.html` derives the `<html lang>` attribute from
+  `.Site.Language.Locale`; `.Site.LanguageCode` was deprecated in
+  Hugo 0.158 and warned on every consumer build. Raises the
+  effective minimum Hugo version to 0.158. (#6)
+- `exampleSite/hugo.toml` sets `locale` in place of the equally
+  deprecated `languageCode` config key.
 
 ## [0.2.2]
 
