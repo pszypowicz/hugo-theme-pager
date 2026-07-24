@@ -67,8 +67,10 @@ printf 'Files changed in this PR:\n%s\n\n' "$changed" >&2
 
 # Paths that do NOT by themselves require a CHANGELOG entry. Everything
 # else (assets/, layouts/, static/, theme.toml, go.mod, exampleSite/, etc.)
-# counts as user-visible and triggers the requirement.
-ignored_re='^(CHANGELOG\.md|README\.md|LICENSE|\.gitignore|\.gitattributes|\.github/|images/)'
+# counts as user-visible and triggers the requirement. package-lock.json
+# pins dev tooling only (the theme ships nothing from npm), so lockfile-only
+# dependency bumps are exempt.
+ignored_re='^(CHANGELOG\.md|README\.md|LICENSE|\.gitignore|\.gitattributes|\.github/|images/|package-lock\.json)'
 
 needs_entry=false
 while IFS= read -r f; do
