@@ -19,6 +19,9 @@
   border-bottom: 1px solid var(--rule);
   padding-bottom: var(--space-1);
 }
+/* Leading glyph lives here, not in templates, so every widget title
+   (including config-supplied ones) gets the same lockup. */
+.widget__title::before { content: "# "; }
 
 .widget__body {
   font-size: 0.9rem;
