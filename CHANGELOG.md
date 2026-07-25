@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- The TOC widget is now a native `<details>` disclosure, collapsed by
+  default so a long contents tree no longer pushes the article title
+  off the first mobile screen. Viewports of 768px and up force the
+  closed element's content visible via `::details-content` and
+  neutralize the toggle, so the desktop sidebar reads unchanged.
+  Browsers without `::details-content` support degrade to a tappable
+  collapsed disclosure at every width.
 - Idle main-menu links render as lowercase `./name` paths with an
   accent-colored prefix. Previously an idle menu entry was visually
   identical to the static subtitle text - the only interactive cue was
