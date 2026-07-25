@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- On narrow viewports, single views flow the main menu and the about
+  widget below the article (menu first) instead of stacking them
+  between the site header and the title; list views keep the sidebar
+  order. `<body>` now carries a `kind-<kind>` class so CSS can scope
+  by page kind.
 - The TOC widget is now a native `<details>` disclosure, collapsed by
   default so a long contents tree no longer pushes the article title
   off the first mobile screen. Viewports of 768px and up force the
