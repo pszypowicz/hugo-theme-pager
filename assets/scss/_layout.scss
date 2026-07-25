@@ -93,8 +93,15 @@
 .menu a {
   font-family: var(--mono-stack);
   font-size: 0.95rem;
+  text-transform: lowercase;
   color: var(--ink-2);
   border-bottom: none;
+}
+/* The accent ./ is the idle-state tap affordance: menu links carry no
+   underline and hover states do not exist on touch screens. */
+.menu a::before {
+  content: "./";
+  color: var(--accent);
 }
 .menu a:hover { color: var(--accent); }
 .menu li.current a {
